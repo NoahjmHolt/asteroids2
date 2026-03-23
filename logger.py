@@ -1,6 +1,8 @@
 
 # this provided by Boot.dev
+# I will add comments as I understand what each part does
 
+# basic imports
 import inspect
 import json
 import math
@@ -8,6 +10,7 @@ from datetime import datetime
 
 __all__ = ["log_state", "log_event"]
 
+# global vars to the file
 _FPS = 60
 _MAX_SECONDS = 16
 _SPRITE_SAMPLE_LIMIT = 10  # Maximum number of sprites to log per group
@@ -19,6 +22,7 @@ _start_time = datetime.now()
 
 
 def log_state():
+    # bring in the global vars to the func
     global _frame_count, _state_log_initialized
 
     # Stop logging after `_MAX_SECONDS` seconds
@@ -45,6 +49,7 @@ def log_state():
     screen_size = []
     game_state = {}
 
+    # very unsure what this is will keep referring back too
     for key, value in local_vars.items():
         if "pygame" in str(type(value)) and hasattr(value, "get_size"):
             screen_size = value.get_size()
@@ -123,6 +128,7 @@ def log_event(event_type, **details):
 
     now = datetime.now()
 
+    # create the event to be logged
     event = {
         "timestamp": now.strftime("%H:%M:%S.%f")[:-3],
         "elapsed_s": math.floor((now - _start_time).total_seconds()),
@@ -131,6 +137,7 @@ def log_event(event_type, **details):
         **details,
     }
 
+    # mode w is for writing then opens up and writes to the jsonl file in the ignore
     mode = "w" if not _event_log_initialized else "a"
     with open("game_events.jsonl", mode) as f:
         f.write(json.dumps(event) + "\n")
