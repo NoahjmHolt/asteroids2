@@ -12,13 +12,18 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    # groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     # clock
     clock = pygame.time.Clock()
     dt = 0
 
     # player
     mother_ship = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-
 
     # keep playing while game is open
     while True:
@@ -28,11 +33,12 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        mother_ship.update(dt)
+        updatable.update(dt)
 
         # make screen filled and then display so user knows where ship and rocks are
         screen.fill('black')
-        mother_ship.draw(screen)
+        for flying in drawable:
+            flying.draw(screen)
         pygame.display.flip()
 
         # time keeps ticking
