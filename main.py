@@ -1,7 +1,9 @@
 
 import pygame
+import sys
+
 from constants import *
-from logger import log_state
+from logger import *
 
 from player import *
 from asteroid import *
@@ -41,11 +43,22 @@ def main():
                 return
 
         updatable.update(dt)
+        asteroids.update(dt)
+
+        for rock in asteroids:
+            if rock.collides_with(mother_ship):
+                log_event("player_hit")
+                print('Game over!')
+                sys.exit()
 
         # make screen filled and then display so user knows where ship and rocks are
         screen.fill('black')
+
         for flying in drawable:
             flying.draw(screen)
+        for rock in asteroids:
+            rock.draw(screen
+                      )
         pygame.display.flip()
 
         # time keeps ticking
