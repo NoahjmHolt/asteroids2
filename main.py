@@ -28,6 +28,8 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        mother_ship.update(dt)
+
         # make screen filled and then display so user knows where ship and rocks are
         screen.fill('black')
         mother_ship.draw(screen)
