@@ -2,6 +2,7 @@
 import pygame
 from constants import *
 from logger import log_state
+from player import *
 
 def main():
 
@@ -15,12 +16,13 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    # player
+    mother_ship = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
+
     # keep playing while game is open
     while True:
         log_state()
-        for event in pygame.event.get():
-            pass
-
         # this lets exit button work
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -28,6 +30,7 @@ def main():
 
         # make screen filled and then display so user knows where ship and rocks are
         screen.fill('black')
+        mother_ship.draw(screen)
         pygame.display.flip()
 
         # time keeps ticking
