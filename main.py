@@ -6,6 +6,8 @@ from constants import *
 from logger import *
 
 from player import *
+from shot import *
+
 from asteroid import *
 from asteroidfield import AsteroidField
 
@@ -21,8 +23,11 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
+
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
 
@@ -49,7 +54,7 @@ def main():
             if rock.collides_with(mother_ship):
                 log_event("player_hit")
                 print('Game over!')
-                sys.exit()
+                sys.exit(0)
 
         # make screen filled and then display so user knows where ship and rocks are
         screen.fill('black')
