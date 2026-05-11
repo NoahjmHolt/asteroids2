@@ -59,7 +59,7 @@ def main():
             for shot in shots:
                 if rock.collides_with(shot):
                     log_event("asteroid_shot")
-                    rock.kill()
+                    rock.split()
                     shot.kill()
 
         # make screen filled and then display so user knows where ship and rocks are
