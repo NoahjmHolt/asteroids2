@@ -56,6 +56,12 @@ def main():
                 print('Game over!')
                 sys.exit(0)
 
+            for shot in shots:
+                if rock.collides_with(shot):
+                    log_event("asteroid_shot")
+                    rock.kill()
+                    shot.kill()
+
         # make screen filled and then display so user knows where ship and rocks are
         screen.fill('black')
 
